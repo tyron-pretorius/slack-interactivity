@@ -1,0 +1,140 @@
+{
+	"blocks": [
+		{
+			"type": "section",
+			"text": {
+				"type": "mrkdwn",
+				"text": "New MQL:\n*<fakeLink.toEmployeeProfile.com|{{First}} {{Last}} - {{Company}}>*"
+			}
+		},
+		{
+			"type": "section",
+			"fields": [
+				{
+					"type": "mrkdwn",
+					"text": "*Company Size:*\n{{Size}}"
+				},
+				{
+					"type": "mrkdwn",
+					"text": "*Company Industry:*\n{{Industry}}"
+				},
+				{
+					"type": "mrkdwn",
+					"text": "*Job Title:*\n{{Title}}"
+				},
+				{
+					"type": "mrkdwn",
+					"text": "*Email:*\n{{Email}"
+				}
+			]
+		},
+		{
+			"type": "input",
+			"element": {
+				"type": "static_select",
+				"placeholder": {
+					"type": "plain_text",
+					"text": "Select a status",
+					"emoji": true
+				},
+				"options": [
+					{
+						"text": {
+							"type": "plain_text",
+							"text": "SAL",
+							"emoji": true
+						},
+						"value": "value-0"
+					},
+					{
+						"text": {
+							"type": "plain_text",
+							"text": "SSL",
+							"emoji": true
+						},
+						"value": "value-1"
+					},
+					{
+						"text": {
+							"type": "plain_text",
+							"text": "Disqualified",
+							"emoji": true
+						},
+						"value": "value-2"
+					}
+				],
+				"action_id": "static_select-action"
+			},
+			"label": {
+				"type": "plain_text",
+				"text": "Status",
+				"emoji": true
+			},
+			"optional": false
+		},
+		{
+			"type": "input",
+			"element": {
+				"type": "plain_text_input",
+				"action_id": "plain_text_input-action"
+			},
+			"label": {
+				"type": "plain_text",
+				"text": "Status Reason",
+				"emoji": true
+			},
+			"optional": false
+		},
+		{
+			"type": "input",
+			"element": {
+				"type": "multi_users_select",
+				"placeholder": {
+					"type": "plain_text",
+					"text": "Select users",
+					"emoji": true
+				},
+				"action_id": "multi_users_select-action"
+			},
+			"label": {
+				"type": "plain_text",
+				"text": "Sales Owner",
+				"emoji": true
+			},
+			"optional": true
+		},
+		{
+			"type": "actions",
+			"elements": [
+				{
+					"type": "button",
+					"text": {
+						"type": "plain_text",
+						"emoji": true,
+						"text": "Submit"
+					},
+					"style": "primary",
+					"value": "click_me_123",
+					"confirm": {
+						"title": {
+							"type": "plain_text",
+							"text": "Are you sure?"
+						},
+						"text": {
+							"type": "plain_text",
+							"text": "Do you want to update this MQL status and assign a sales owner?"
+						},
+						"confirm": {
+							"type": "plain_text",
+							"text": "Yes, submit it"
+						},
+						"deny": {
+							"type": "plain_text",
+							"text": "Stop, go back"
+						}
+					}
+				}
+			]
+		}
+	]
+}
