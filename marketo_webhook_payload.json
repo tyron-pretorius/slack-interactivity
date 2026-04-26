@@ -1,10 +1,11 @@
 {
+  "text": "New MQL: {{lead.First Name}} {{lead.Last Name}} - {{company.Company Name}}",
   "blocks": [
     {
       "type": "section",
       "text": {
         "type": "mrkdwn",
-        "text": "New MQL:\n*<{{ProfileURL}}|{{First}} {{Last}} - {{Company}}>*"
+        "text": "New MQL:\n*<{{my.Base URL}}/leadDatabase/loadLeadDetail?leadId={{lead.Id}}&accessZoneId=1|{{lead.First Name}} {{lead.Last Name}} - {{company.Company Name}}>*"
       }
     },
     {
@@ -12,19 +13,19 @@
       "fields": [
         {
           "type": "mrkdwn",
-          "text": "*Company Size:*\n{{Size}}"
+          "text": "*Company Size:*\n{{company.Num Employees}}"
         },
         {
           "type": "mrkdwn",
-          "text": "*Company Industry:*\n{{Industry}}"
+          "text": "*Company Industry:*\n{{company.Industry}}"
         },
         {
           "type": "mrkdwn",
-          "text": "*Job Title:*\n{{Title}}"
+          "text": "*Job Title:*\n{{lead.Job Title}}"
         },
         {
           "type": "mrkdwn",
-          "text": "*Email:*\n{{Email}}"
+          "text": "*Email:*\n{{lead.Email Address}}"
         }
       ]
     },
@@ -40,7 +41,7 @@
             "emoji": true
           },
           "style": "primary",
-          "value": "{{ReviewContext}}"
+          "value": "{{lead.Id}}|{{lead.Email Address}}|{{lead.First Name}}|{{lead.Last Name}}|{{company.Company Name}}"
         }
       ]
     }
