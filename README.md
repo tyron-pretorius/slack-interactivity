@@ -127,8 +127,7 @@ The app should have the scopes needed for this workflow, including:
 
 ```text
 chat:write
-users:read
-users:read.email
+users.profile:read
 reactions:write
 ```
 

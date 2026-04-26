@@ -13,7 +13,7 @@ dotenv.load_dotenv()
 # Edit these sample values when you want to send a test message manually.
 SLACK_BOT_TOKEN = os.environ["SLACK_BOT_TOKEN"]
 SLACK_CHANNEL = "#wins"
-TEMPLATE_PATH = Path(__file__).with_name("message_template.json")
+TEMPLATE_PATH = Path(__file__).with_name("slack_message_template.json")
 
 MESSAGE_VALUES = {
     "First": "Tyron",
