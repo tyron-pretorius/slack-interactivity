@@ -36,13 +36,6 @@ The main use case today is:
 - Gets an access token
 - Updates a lead using a dictionary of Marketo field names and values
 
-`test_slack_user_email.py`
-- Tests a few Slack user lookup methods
-- Useful for confirming the app can read a user's email address
-
-`test_slack_users_info_email.py`
-- Small focused test for `users.info`
-
 ## Template Files
 
 `message_template.json`
@@ -136,7 +129,6 @@ The app should have the scopes needed for this workflow, including:
 chat:write
 users:read
 users:read.email
-commands
 reactions:write
 ```
 

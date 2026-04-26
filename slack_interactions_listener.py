@@ -8,12 +8,20 @@ import dotenv
 from flask import Flask, Response, jsonify, request
 
 from marketo_functions import update_lead
-from slack_functions import add_reaction, get_user_profile, open_modal
+from slack_functions import SlackApiError, add_reaction, get_user_profile, open_modal
 
 
 dotenv.load_dotenv()
 
 app = Flask(__name__)
+
+### Update These ###
+# This keeps the Marketo API field names in one place.
+MARKETO_FIELD_NAMES = {
+    "status": "leadStatus",
+    "status_reason": "leadStatusReason",
+    "owner_email": "ownerEmailAddress",
+}
 
 # These values come from `.env` and are used for every incoming Slack interaction.
 SLACK_BOT_TOKEN = os.environ["SLACK_BOT_TOKEN"]
@@ -26,13 +34,6 @@ STATUS_REASON_BLOCK_ID = "status_reason_block"
 STATUS_REASON_ACTION_ID = "status_reason_action"
 SALES_OWNER_BLOCK_ID = "sales_owner_block"
 SALES_OWNER_ACTION_ID = "sales_owner_action"
-
-# This keeps the Marketo API field names in one place.
-MARKETO_FIELD_NAMES = {
-    "status": "leadStatus",
-    "status_reason": "leadStatusReason",
-    "owner_email": "ownerEmailAddress",
-}
 
 
 def verify_slack_signature(timestamp, body, slack_signature):
@@ -176,12 +177,17 @@ def slack_interactions():
         marketo_response = update_lead(marketo_lead_data)
 
         # Add a check mark to the original Slack message so the team can see it was handled.
-        add_reaction(
-            SLACK_BOT_TOKEN,
-            review_context["channel_id"],
-            review_context["message_ts"],
-            "white_check_mark",
-        )
+        try:
+            add_reaction(
+                SLACK_BOT_TOKEN,
+                review_context["channel_id"],
+                review_context["message_ts"],
+                "white_check_mark",
+            )
+        except SlackApiError as exc:
+            # If the message already has the check mark, we do not want the whole submission to fail.
+            if str(exc) != "already_reacted":
+                raise
 
         print("Review submitted")
         print(f"marketo_id={review_context['marketo_id']}")
